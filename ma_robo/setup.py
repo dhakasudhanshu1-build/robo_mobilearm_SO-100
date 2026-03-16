@@ -1,4 +1,6 @@
 from setuptools import find_packages, setup
+from glob import glob
+import os
 
 package_name = 'ma_robo'
 
@@ -9,21 +11,33 @@ setup(
     data_files=[
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
+
         ('share/' + package_name, ['package.xml']),
+
+        # Launch files
+        (os.path.join('share', package_name, 'launch'), glob('launch/*.py')),
+
+        # URDF and XACRO
+        (os.path.join('share', package_name, 'urdf'), glob('urdf/*')),
+
+        # Robot models
+        (os.path.join('share', package_name, 'models', 'so_100_arm_5dof'),
+         glob('models/so_100_arm_5dof/model.config')),
+
+        # Mesh files
+        (os.path.join('share', package_name, 'models', 'so_100_arm_5dof', 'meshes'),
+         glob('models/so_100_arm_5dof/meshes/*.STL')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='sudhanshu',
     maintainer_email='dhakasudhanshu1@gmail.com',
-    description='TODO: Package description',
-    license='TODO: License declaration',
+    description='ROS2 package for SO-100 mobile arm robot',
+    license='Apache License 2.0',
     extras_require={
-        'test': [
-            'pytest',
-        ],
+        'test': ['pytest'],
     },
     entry_points={
-        'console_scripts': [
-        ],
+        'console_scripts': [],
     },
 )

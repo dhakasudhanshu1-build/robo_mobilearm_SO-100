@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="four_wheel_robot">
+
+<xacro:property name="M_PI" value="3.1415926535897931"/>
+
+<!-- Materials -->
+
+<material name="Black">
+  <color rgba="0 0 0 1"/>
+</material>
+
+<material name="White">
+  <color rgba="1 1 1 1"/>
+</material>
+
+
+<!-- Inertia Macro -->
+
+<xacro:macro name="box_inertia" params="m x y z">
+  <inertia
+    ixx="${m*(y*y+z*z)/12}"
+    ixy="0"
+    ixz="0"
+    iyy="${m*(x*x+z*z)/12}"
+    iyz="0"
+    izz="${m*(x*x+y*y)/12}" />
+</xacro:macro>
+
+
+<!-- Wheel Link -->
+
+<xacro:macro name="wheel_link" params="name radius width mass">
+
+<link name="${name}">
+
+  <visual>
+    <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+    <geometry>
+      <cylinder radius="${radius}" length="${width}"/>
+    </geometry>
+    <material name="Black"/>
+  </visual>
+
+  <collision>
+    <origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
+    <geometry>
+      <cylinder radius="${radius}" length="${width}"/>
+    </geometry>
+  </collision>
+
+  <inertial>
+    <mass value="${mass}"/>
+    <origin xyz="0 0 0"/>
+    <inertia ixx="0.001" ixy="0" ixz="0"
+             iyy="0.001" iyz="0"
+             izz="0.001"/>
+  </inertial>
+
+</link>
+
+</xacro:macro>
+
+
+<!-- Wheel Joint -->
+
+<xacro:macro name="wheel_joint" params="name parent child x y z">
+
+<joint name="${name}" type="continuous">
+
+  <parent link="${parent}"/>
+  <child link="${child}"/>
+
+  <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
+
+  <axis xyz="0 1 0"/>
+
+  <limit effort="50" velocity="20"/>
+
+</joint>
+
+</xacro:macro>
+
+</robot>
