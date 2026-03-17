@@ -374,7 +374,7 @@
 <joint name="arm_mount_joint" type="fixed">
   <parent link="base_link"/>
   <child link="arm_mount_link"/>
-  <origin xyz="0 0 ${base_height/2}" rpy="0 0 0"/>
+  <origin xyz="-0.035 0 ${base_height/2}" rpy="0 0 0"/>
 </joint>
 
 
@@ -382,7 +382,7 @@
 <joint name="arm_to_robot_joint" type="fixed">
   <parent link="arm_mount_link"/>
   <child link="arm_base_link"/>
-  <origin xyz="0 0 0.02" rpy="0 0 1.57"/>
+  <origin xyz="0 0 0.011" rpy="0 0 1.57"/>
 </joint>
 
 </robot>

@@ -9,13 +9,13 @@ import os
 
 def generate_launch_description():
 
-    pkg = "robo"
+    pkg = "ma_robo"
 
     robot_description = Command([
         "xacro ",
         os.path.join(
             FindPackageShare(pkg).find(pkg),
-            "robo_urdf",
+            "urdf",
             "robo.xacro"
         )
     ])
@@ -36,7 +36,7 @@ def generate_launch_description():
         executable="spawn_entity.py",
         arguments=[
             "-topic", "robot_description",
-            "-entity", "robo"
+            "-entity", "ma_robo"
         ],
         output="screen"
     )
